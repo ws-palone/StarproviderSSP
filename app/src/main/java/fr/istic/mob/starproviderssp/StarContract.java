@@ -1,4 +1,4 @@
-package fr.istic.starproviderSSP;
+package fr.istic.mob.starproviderssp;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
