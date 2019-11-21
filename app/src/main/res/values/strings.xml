@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StarproviderSSP</string>
+    <string name="button">Valider</string>
+
 </resources>
