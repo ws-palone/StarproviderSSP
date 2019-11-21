@@ -1,6 +1,8 @@
-package fr.istic.mob.starproviderssp;
+package fr.istic.mob.starproviderssp.table;
 
-public class CalendarF implements  StarContract{
+import fr.istic.mob.starproviderssp.StarContract;
+
+public class CalendarF implements StarContract {
 
     private String monday = Calendar.CalendarColumns.MONDAY;
     private String tuesday = Calendar.CalendarColumns.TUESDAY;

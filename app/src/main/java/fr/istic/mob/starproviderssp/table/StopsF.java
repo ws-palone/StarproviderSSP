@@ -1,6 +1,8 @@
-package fr.istic.mob.starproviderssp;
+package fr.istic.mob.starproviderssp.table;
 
-public class StopsF implements StarContract{
+import fr.istic.mob.starproviderssp.StarContract;
+
+public class StopsF implements StarContract {
 
     private String name = Stops.StopColumns.NAME;
     private String description = Stops.StopColumns.DESCRIPTION;
