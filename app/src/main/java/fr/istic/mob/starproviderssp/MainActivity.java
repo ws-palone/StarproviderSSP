@@ -8,15 +8,37 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+
+import static android.os.SystemClock.sleep;
 
 public class MainActivity extends AppCompatActivity {
-String CHANNEL_ID = "1";
+    String CHANNEL_ID = "1";
+    int PROGRESS_MAX = 100;
+    int PROGRESS_CURRENT = 0;
+
+    NotificationManagerCompat notificationManager;
+
+    NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         createNotificationChannel();
         createNotification();
+
+        for(int i = 0; i < 10 ; i ++){
+            sleep(1000);
+            Log.d("Sleep"," i : " + i);
+            PROGRESS_CURRENT += 10;
+            builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
+            notificationManager.notify(1, builder.build());
+
+        }
+        builder.setContentText("Download complete")
+                .setProgress(0,0,false);
+        notificationManager.notify(1, builder.build());
+
 
 
 
@@ -27,8 +49,7 @@ String CHANNEL_ID = "1";
         String textTitle = "Nouveau csv !";
         String textContent = "\nUn nouveau CSV a été ajouté sur le site de la STAR, cliquez pour le télécharger !";
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_stat_onesignal_default)
+        builder.setSmallIcon(R.drawable.ic_stat_onesignal_default)
                 .setContentTitle(textTitle)
                 .setContentText(textContent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -36,12 +57,11 @@ String CHANNEL_ID = "1";
                         .bigText(textContent));
 
 
-        int PROGRESS_MAX = 100;
-        int PROGRESS_CURRENT = 0;
+
         builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
 
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager = NotificationManagerCompat.from(this);
 
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(1, builder.build());
