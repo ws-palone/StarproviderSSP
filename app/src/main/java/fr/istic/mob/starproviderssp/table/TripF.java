@@ -1,6 +1,8 @@
-package fr.istic.mob.starproviderssp;
+package fr.istic.mob.starproviderssp.table;
 
-public class TripF implements StarContract{
+import fr.istic.mob.starproviderssp.StarContract;
+
+public class TripF implements StarContract {
 
     private String routeId = Trips.TripColumns.ROUTE_ID;
     private String serviceId = Trips.TripColumns.SERVICE_ID;

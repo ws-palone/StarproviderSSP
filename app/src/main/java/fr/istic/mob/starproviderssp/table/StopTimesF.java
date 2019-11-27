@@ -1,6 +1,8 @@
-package fr.istic.mob.starproviderssp;
+package fr.istic.mob.starproviderssp.table;
 
-public class StopTimesF implements StarContract{
+import fr.istic.mob.starproviderssp.StarContract;
+
+public class StopTimesF implements StarContract {
 
     private String tripId = StopTimes.StopTimeColumns.TRIP_ID;
     private String arrivalTime = StopTimes.StopTimeColumns.ARRIVAL_TIME;
