@@ -1,15 +1,10 @@
 package fr.istic.mob.starproviderssp;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -17,7 +12,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class StarManager extends Worker {
 
@@ -34,28 +33,44 @@ public class StarManager extends Worker {
             HttpURLConnection connexion = (HttpURLConnection) url.openConnection();
             try {
                 InputStream in = new BufferedInputStream(connexion.getInputStream());
-                readStream(in);
+                String json = readStream(in);
+                String[] arrStrg = json.split(",");
+                String[] arrUrl = new String[10];
+                int y =0;
+                for (int i = 0; i < arrStrg.length; i++){
+                    String value = arrStrg[i];
+                    if(value.contains("url")){
+                        String[] arrSplit = value.split("\"");
+                        String result = arrSplit[3];
+                        arrUrl[y] = result;
+                        y++;
+                    }
+                }
+                String urlZip = arrUrl[0];
+                unzip(urlZip);
             } finally {
                 connexion.disconnect();
             }
-            /*InputStream inputStream = connexion.getInputStream();
-            String result = inputStream.toString();
-            JSONObject jsonObject = new JSONObject(result);
-            JSONArray fields = jsonObject.getJSONArray("fields");
-            for (int i=0; i < fields.length(); i++)
-            {
-                try {
-                    JSONObject oneObject = fields.getJSONObject(i);
-                    // Pulling items from the array
-                    String urlbase = oneObject.toString();
-                    Log.d("bonjour",urlbase);
-                } catch (JSONException e) {
-                }
-            }*/
+
         }catch (Exception e){
             e.printStackTrace();
         }
         return Result.SUCCESS;
+    }
+
+    private void unzip(String urlZip) {
+        try {
+            URL url = new URL(urlZip);
+            HttpURLConnection zipConnexion = (HttpURLConnection) url.openConnection();
+            ZipInputStream inputStreamzip = new ZipInputStream(zipConnexion.getInputStream());
+            ZipEntry entry = inputStreamzip.getNextEntry();
+            ArrayList<String[]> arrayLine = new ArrayList<String[]>();
+                while(entry != null) {
+                    
+                }
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String readStream(InputStream is) throws IOException {
@@ -65,7 +80,6 @@ public class StarManager extends Worker {
             sb.append(line);
         }
         is.close();
-        Log.d("bonjour",sb.toString());
         return sb.toString();
     }
 }
