@@ -2,7 +2,7 @@ package fr.istic.mob.starproviderssp.table;
 
 import fr.istic.mob.starproviderssp.StarContract;
 
-public class StopTimesF implements StarContract {
+public class StopTimes implements StarContract {
 
     private String tripId = StopTimes.StopTimeColumns.TRIP_ID;
     private String arrivalTime = StopTimes.StopTimeColumns.ARRIVAL_TIME;
@@ -10,7 +10,7 @@ public class StopTimesF implements StarContract {
     private String stopId = StopTimes.StopTimeColumns.STOP_ID;
     private String stopsequence = StopTimes.StopTimeColumns.STOP_SEQUENCE;
 
-    public StopTimesF(String tripId, String arrivalTime, String departureTime, String stopId, String stopsequence) {
+    public StopTimes(String tripId, String arrivalTime, String departureTime, String stopId, String stopsequence) {
         this.tripId = tripId;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;

@@ -2,7 +2,7 @@ package fr.istic.mob.starproviderssp.table;
 
 import fr.istic.mob.starproviderssp.StarContract;
 
-public class StopsF implements StarContract {
+public class Stops implements StarContract {
 
     private String name = Stops.StopColumns.NAME;
     private String description = Stops.StopColumns.DESCRIPTION;
@@ -10,7 +10,7 @@ public class StopsF implements StarContract {
     private String Longitude = Stops.StopColumns.LONGITUDE;
     private  String wheelchairBoarding = Stops.StopColumns.WHEELCHAIR_BOARDING;
 
-    public StopsF(String name, String description, String longitude, String latitude, String wheelchairBoarding) {
+    public Stops(String name, String description, String longitude, String latitude, String wheelchairBoarding) {
         this.name = name;
         this.description = description;
         this.latitude = latitude;

@@ -156,6 +156,14 @@ public class StarManager extends Worker {
                 setRouteColor(line[7]);
                 setRouteTextColor(line[8]);*/
                 break;
+            case "stop.txt":
+                /*setId(line[0]);
+                setStopName(line[2]);
+                setStopDesc(line[3]);
+                setStopLat(line[4]);
+                setStopLon(line[5]);
+                setWheelchairBoarding(Integer.parseInt(line[11]));*/
+                break;
         }
     }
 }
