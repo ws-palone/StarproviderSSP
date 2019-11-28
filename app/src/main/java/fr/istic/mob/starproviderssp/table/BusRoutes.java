@@ -2,7 +2,7 @@ package fr.istic.mob.starproviderssp.table;
 
 import fr.istic.mob.starproviderssp.StarContract;
 
-public class BusRoutesF implements StarContract {
+public class BusRoutes implements StarContract {
 
     private String short_name = BusRoutes.BusRouteColumns.SHORT_NAME;
     private String long_name = BusRoutes.BusRouteColumns.LONG_NAME;
@@ -11,7 +11,7 @@ public class BusRoutesF implements StarContract {
     private String color = BusRoutes.BusRouteColumns.COLOR;
     private String text_color = BusRoutes.BusRouteColumns.TEXT_COLOR;
 
-    public BusRoutesF(String short_name, String long_name, String description, String type, String color, String text_color){
+    public BusRoutes(String short_name, String long_name, String description, String type, String color, String text_color){
         this.short_name = short_name;
         this.long_name = long_name;
         this.descritpion = description;

@@ -2,7 +2,7 @@ package fr.istic.mob.starproviderssp.table;
 
 import fr.istic.mob.starproviderssp.StarContract;
 
-public class CalendarF implements StarContract {
+public class Calendar implements StarContract {
 
     private String monday = Calendar.CalendarColumns.MONDAY;
     private String tuesday = Calendar.CalendarColumns.TUESDAY;
@@ -14,8 +14,8 @@ public class CalendarF implements StarContract {
     private String startdate = Calendar.CalendarColumns.START_DATE;
     private String enddate = Calendar.CalendarColumns.END_DATE;
 
-    public CalendarF(String monday, String tuesday, String wednesday, String thursday, String friday,
-                     String saturday, String sunday, String startdate, String enddate) {
+    public Calendar(String monday, String tuesday, String wednesday, String thursday, String friday,
+                    String saturday, String sunday, String startdate, String enddate) {
         this.monday = monday;
         this.tuesday = tuesday;
         this.wednesday = wednesday;

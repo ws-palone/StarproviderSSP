@@ -2,7 +2,7 @@ package fr.istic.mob.starproviderssp.table;
 
 import fr.istic.mob.starproviderssp.StarContract;
 
-public class TripF implements StarContract {
+public class Trip implements StarContract {
 
     private String routeId = Trips.TripColumns.ROUTE_ID;
     private String serviceId = Trips.TripColumns.SERVICE_ID;
@@ -11,7 +11,7 @@ public class TripF implements StarContract {
     private String blockId = Trips.TripColumns.BLOCK_ID;
     private String wheelchairAccessible = Trips.TripColumns.WHEELCHAIR_ACCESSIBLE;
 
-    public TripF(String routeId, String serviceId, String headsign, String directionId, String blockId, String wheelchairAccessible) {
+    public Trip(String routeId, String serviceId, String headsign, String directionId, String blockId, String wheelchairAccessible) {
         this.routeId = routeId;
         this.serviceId = serviceId;
         this.headsign = headsign;
