@@ -43,6 +43,8 @@ public class StarManager extends Worker {
     @Override
     public Result doWork() {
         ArrayList liens = getLien();
+        DB_Starprovider db_starprovider = new DB_Starprovider(MainActivity.getmInstanceActivity());
+        db_starprovider.getWritableDatabase();
         Iterator<String> it = liens.iterator();
         while(it.hasNext()){
             String lien = it.next();
@@ -148,7 +150,6 @@ public class StarManager extends Worker {
     }
 
     private void insertBDD(String[] line, ZipEntry entry, DB_Access dbAccess) {
-
         switch(entry.getName()){
             case "calendar.txt":
                 Calendar calendar= new Calendar();
@@ -161,7 +162,6 @@ public class StarManager extends Worker {
                 calendar.setSunday(line[7]);
                 calendar.setStartdate(line[8]);
                 calendar.setEnddate(line[9]);
-                Log.d("1","1");
                 dbAccess.insertCalendar(calendar);
                 break;
             case "routes.txt":
@@ -173,7 +173,6 @@ public class StarManager extends Worker {
                 busroutes.setColor(line[7]);
                 busroutes.setText_color(line[8]);
                 dbAccess.insertBusRoutes(busroutes);
-                Log.d("2","2");
                 break;
             case "stop.txt":
                 Stops stops = new Stops();
@@ -183,7 +182,6 @@ public class StarManager extends Worker {
                 stops.setLongitude(line[5]);
                 stops.setWheelchairBoarding(line[11]);
                 dbAccess.insertStops(stops);
-                Log.d("3","3");
                 break;
             case "stop_times.txt":
                 StopTimes stoptimes = new StopTimes();
@@ -193,16 +191,15 @@ public class StarManager extends Worker {
                 stoptimes.setArrivalTime(line[1]);
                 stoptimes.setStopsequence(line[4]);
                 dbAccess.insertStopsTimes(stoptimes);
-                Log.d("4","4");
                 break;
             case "trips.txt":
                 Trips trips = new Trips();
                 trips.setBlockId(line[6]);
-                trips.setDirectionId(line[5]);
+                trips.setDirectionId(Integer.parseInt(line[5]));
                 trips.setHeadsign(line[3]);
-                trips.setRouteId(line[0]);
-                trips.setServiceId(line[1]);
-                trips.setWheelchairAccessible(line[8]);
+                trips.setRouteId(Integer.parseInt(line[0]));
+                trips.setServiceId(Integer.parseInt(line[1]));
+                trips.setWheelchairAccessible(Integer.parseInt(line[8]));
                 dbAccess.insertTrip(trips);
                 break;
         }

@@ -4,27 +4,27 @@ import fr.istic.mob.starproviderssp.StarContract;
 
 public class Trips implements StarContract {
 
-    private String routeId;
-    private String serviceId;
+    private int routeId;
+    private int serviceId;
     private String headsign;
-    private String directionId;
+    private int directionId;
     private String blockId;
-    private String wheelchairAccessible;
+    private int wheelchairAccessible;
 
 
-    public String getRouteId() {
+    public int getRouteId() {
         return routeId;
     }
 
-    public void setRouteId(String routeId) {
+    public void setRouteId(int routeId) {
         this.routeId = routeId;
     }
 
-    public String getServiceId() {
+    public int getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(String serviceId) {
+    public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -36,11 +36,11 @@ public class Trips implements StarContract {
         this.headsign = headsign;
     }
 
-    public String getDirectionId() {
+    public int getDirectionId() {
         return directionId;
     }
 
-    public void setDirectionId(String directionId) {
+    public void setDirectionId(int directionId) {
         this.directionId = directionId;
     }
 
@@ -52,11 +52,11 @@ public class Trips implements StarContract {
         this.blockId = blockId;
     }
 
-    public String getWheelchairAccessible() {
+    public int getWheelchairAccessible() {
         return wheelchairAccessible;
     }
 
-    public void setWheelchairAccessible(String wheelchairAccessible) {
+    public void setWheelchairAccessible(int wheelchairAccessible) {
         this.wheelchairAccessible = wheelchairAccessible;
     }
 }

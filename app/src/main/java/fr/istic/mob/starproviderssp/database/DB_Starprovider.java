@@ -89,4 +89,13 @@ public class DB_Starprovider extends SQLiteOpenHelper {
                 + StarContract.Calendar.CalendarColumns.SUNDAY+" INTEGER NOT NULL,"
                 + StarContract.Calendar.CalendarColumns.START_DATE+" INTEGER NOT NULL,"
                 + StarContract.Calendar.CalendarColumns.END_DATE +" INTEGER NOT NULL);";
+
+    public void onDelete(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " +StarContract.BusRoutes.CONTENT_PATH +
+                StarContract.Trips.CONTENT_PATH+
+                StarContract.Stops.CONTENT_PATH+
+                StarContract.StopTimes.CONTENT_PATH+
+                StarContract.Calendar.CONTENT_PATH );
+
+    }
 }
