@@ -10,13 +10,6 @@ public class StopTimes implements StarContract {
     private String stopId = StopTimes.StopTimeColumns.STOP_ID;
     private String stopsequence = StopTimes.StopTimeColumns.STOP_SEQUENCE;
 
-    public StopTimes(String tripId, String arrivalTime, String departureTime, String stopId, String stopsequence) {
-        this.tripId = tripId;
-        this.arrivalTime = arrivalTime;
-        this.departureTime = departureTime;
-        this.stopId = stopId;
-        this.stopsequence = stopsequence;
-    }
 
     public String getTripId() {
         return tripId;

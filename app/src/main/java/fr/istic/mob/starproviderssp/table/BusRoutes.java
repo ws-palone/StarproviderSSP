@@ -4,21 +4,17 @@ import fr.istic.mob.starproviderssp.StarContract;
 
 public class BusRoutes implements StarContract {
 
-    private String short_name = BusRoutes.BusRouteColumns.SHORT_NAME;
-    private String long_name = BusRoutes.BusRouteColumns.LONG_NAME;
-    private String descritpion = BusRoutes.BusRouteColumns.DESCRIPTION;
-    private String type = BusRoutes.BusRouteColumns.TYPE;
-    private String color = BusRoutes.BusRouteColumns.COLOR;
-    private String text_color = BusRoutes.BusRouteColumns.TEXT_COLOR;
+    private int id;
+    private String short_name;
+    private String long_name;
+    private String descritpion;
+    private String type;
+    private String color;
+    private String text_color;
 
-    public BusRoutes(String short_name, String long_name, String description, String type, String color, String text_color){
-        this.short_name = short_name;
-        this.long_name = long_name;
-        this.descritpion = description;
-        this.type = type;
-        this.color = color;
-        this.text_color = text_color;
-    }
+    public int getId(){return id;}
+
+    public void setId(int id){this.id = id;}
 
     public String getShort_name(){
         return this.short_name;

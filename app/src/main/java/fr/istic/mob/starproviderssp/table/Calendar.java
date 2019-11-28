@@ -4,32 +4,21 @@ import fr.istic.mob.starproviderssp.StarContract;
 
 public class Calendar implements StarContract {
 
-    private String monday = Calendar.CalendarColumns.MONDAY;
-    private String tuesday = Calendar.CalendarColumns.TUESDAY;
-    private String wednesday = Calendar.CalendarColumns.WEDNESDAY;
-    private String thursday = Calendar.CalendarColumns.THURSDAY;
-    private String friday = Calendar.CalendarColumns.FRIDAY;
-    private String saturday = Calendar.CalendarColumns.SATURDAY;
-    private String Sunday = Calendar.CalendarColumns.SUNDAY;
-    private String startdate = Calendar.CalendarColumns.START_DATE;
-    private String enddate = Calendar.CalendarColumns.END_DATE;
+    private int id ;
+    private String monday;
+    private String tuesday;
+    private String wednesday;
+    private String thursday;
+    private String friday;
+    private String saturday;
+    private String Sunday;
+    private String startdate;
+    private String enddate;
 
-    public Calendar(String monday, String tuesday, String wednesday, String thursday, String friday,
-                    String saturday, String sunday, String startdate, String enddate) {
-        this.monday = monday;
-        this.tuesday = tuesday;
-        this.wednesday = wednesday;
-        this.thursday = thursday;
-        this.friday = friday;
-        this.saturday = saturday;
-        Sunday = sunday;
-        this.startdate = startdate;
-        this.enddate = enddate;
-    }
 
-    public void CreateCalendar(){
+    public int getId(){return id;}
 
-    }
+    public void setId(int id){this.id = id;}
 
     public String getMonday() {
         return monday;

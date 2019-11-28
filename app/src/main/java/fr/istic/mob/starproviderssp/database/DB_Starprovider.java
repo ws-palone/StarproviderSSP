@@ -4,25 +4,19 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 import fr.istic.mob.starproviderssp.StarContract;
 
 public class DB_Starprovider extends SQLiteOpenHelper {
 
-    private String dbName = "db_starprovider.sqlite";
-    private Integer dbVersion = 1;
-    private DB_Starprovider dbAccess;
+    private static final String dbName = "db_starprovider.db";
+    private static final Integer dbVersion = 1;
 
     /**
      *
      * @param context
-     * @param name
-     * @param factory
-     * @param version
      */
-    public DB_Starprovider(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DB_Starprovider(Context context) {
+        super(context, dbName, null, dbVersion);
     }
 
     /**
@@ -31,7 +25,11 @@ public class DB_Starprovider extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(create);
+        db.execSQL(createBus);
+        db.execSQL(createStop);
+        db.execSQL(createStopTimes);
+        db.execSQL(createCalendar);
+        db.execSQL(createTrip);
     }
 
     /**
@@ -46,41 +44,41 @@ public class DB_Starprovider extends SQLiteOpenHelper {
     }
 
     //le SQL de création de la base
-    private String create = "CREATE TABLE "+ StarContract.BusRoutes.CONTENT_PATH + " ("
+    private static final String createBus = "CREATE TABLE IF NOT EXISTS  "+ StarContract.BusRoutes.CONTENT_PATH + " ("
                 + StarContract.BusRoutes.BusRouteColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + StarContract.BusRoutes.BusRouteColumns.SHORT_NAME + " TEXT NOT NULL,"
                 + StarContract.BusRoutes.BusRouteColumns.LONG_NAME + " TEXT NOT NULL,"
-                + StarContract.BusRoutes.BusRouteColumns.DESCRIPTION +" TEXT NOT NULL,"
+                + StarContract.BusRoutes.BusRouteColumns.DESCRIPTION +" TEXT,"
                 + StarContract.BusRoutes.BusRouteColumns.TYPE + " INTEGER NOT NULL,"
                 + StarContract.BusRoutes.BusRouteColumns.COLOR + " TEXT NOT NULL,"
-                + StarContract.BusRoutes.BusRouteColumns.TEXT_COLOR + " TEXT NOT NULL);"
+                + StarContract.BusRoutes.BusRouteColumns.TEXT_COLOR + " TEXT NOT NULL);";
 
-                + "CREATE TABLE "+ StarContract.Trips.CONTENT_PATH +" ("
+    public static final String createTrip = "CREATE TABLE IF NOT EXISTS  "+ StarContract.Trips.CONTENT_PATH +" ("
                 + StarContract.Trips.TripColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + StarContract.Trips.TripColumns.SERVICE_ID + " INTEGER NOT NULL, "
                 + StarContract.Trips.TripColumns.ROUTE_ID + " INTEGER NOT NULL, "
                 + StarContract.Trips.TripColumns.HEADSIGN + " TEXT NOT NULL, "
                 + StarContract.Trips.TripColumns.DIRECTION_ID + " INTEGER NOT NULL, "
                 + StarContract.Trips.TripColumns.BLOCK_ID + " TEXT NOT NULL, "
-                + StarContract.Trips.TripColumns.WHEELCHAIR_ACCESSIBLE + " INTEGER NOT NULL);"
+                + StarContract.Trips.TripColumns.WHEELCHAIR_ACCESSIBLE + " INTEGER NOT NULL);";
 
-                + "CREATE TABLE "+ StarContract.Stops.CONTENT_PATH +" ("
-                + StarContract.Stops.StopColumns._ID + " TEXT PRIMARY KEY AUTOINCREMENT, "
-                + StarContract.Stops.StopColumns.DESCRIPTION  + " TEXT NOT NULL, "
+    public static final String createStop ="CREATE TABLE IF NOT EXISTS  "+ StarContract.Stops.CONTENT_PATH +" ("
+                + StarContract.Stops.StopColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + StarContract.Stops.StopColumns.DESCRIPTION  + " TEXT, "
                 + StarContract.Stops.StopColumns.LATITUDE + " REAL NOT NULL, "
                 + StarContract.Stops.StopColumns.LONGITUDE+ " REAL NOT NULL, "
                 + StarContract.Stops.StopColumns.NAME+ " TEXT NOT NULL, "
-                + StarContract.Stops.StopColumns.WHEELCHAIR_BOARDING + " INTEGER NOT NULL);"
+                + StarContract.Stops.StopColumns.WHEELCHAIR_BOARDING + " INTEGER NOT NULL);";
 
-                + "CREATE TABLE "+ StarContract.StopTimes.CONTENT_PATH +" ("
+    public static final String createStopTimes = "CREATE TABLE IF NOT EXISTS  "+ StarContract.StopTimes.CONTENT_PATH +" ("
                 + StarContract.StopTimes.StopTimeColumns._ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + StarContract.StopTimes.StopTimeColumns.TRIP_ID+" INTEGER NOT NULL,"
                 + StarContract.StopTimes.StopTimeColumns.ARRIVAL_TIME+" TEXT NOT NULL,"
                 + StarContract.StopTimes.StopTimeColumns.DEPARTURE_TIME+" TEXT NOT NULL,"
                 + StarContract.StopTimes.StopTimeColumns.STOP_ID+" TEXT NOT NULL,"
-                + StarContract.StopTimes.StopTimeColumns.STOP_SEQUENCE+" INTEGER NOT NULL);"
+                + StarContract.StopTimes.StopTimeColumns.STOP_SEQUENCE+" INTEGER NOT NULL);";
 
-                + "CREATE TABLE "+ StarContract.Calendar.CONTENT_PATH +" ("
+    public static final String createCalendar ="CREATE TABLE IF NOT EXISTS  "+ StarContract.Calendar.CONTENT_PATH +" ("
                 + StarContract.Calendar.CalendarColumns._ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + StarContract.Calendar.CalendarColumns.MONDAY+" INTEGER NOT NULL,"
                 + StarContract.Calendar.CalendarColumns.TUESDAY+" INTEGER NOT NULL,"

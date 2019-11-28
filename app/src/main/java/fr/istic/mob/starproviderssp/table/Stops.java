@@ -4,19 +4,16 @@ import fr.istic.mob.starproviderssp.StarContract;
 
 public class Stops implements StarContract {
 
+    private int id;
     private String name = Stops.StopColumns.NAME;
     private String description = Stops.StopColumns.DESCRIPTION;
     private String latitude = Stops.StopColumns.LATITUDE;
     private String Longitude = Stops.StopColumns.LONGITUDE;
     private  String wheelchairBoarding = Stops.StopColumns.WHEELCHAIR_BOARDING;
 
-    public Stops(String name, String description, String longitude, String latitude, String wheelchairBoarding) {
-        this.name = name;
-        this.description = description;
-        this.latitude = latitude;
-        this.Longitude = longitude;
-        this.wheelchairBoarding = wheelchairBoarding;
-    }
+    public int getId(){return id;}
+
+    public void setId(int id){this.id=id;}
 
     public String getName() {
         return name;

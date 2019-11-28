@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     String CHANNEL_ID = "1";
     int PROGRESS_MAX = 100;
     int PROGRESS_CURRENT = 0;
+    private static MainActivity MainAct;
+    public static MainActivity getmInstanceActivity(){return MainAct;}
 
     NotificationManagerCompat notificationManager;
 
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
         getJSON();
         createNotification();
+        MainAct = this;
 
         for (int i = 0; i < 10; i++) {
             sleep(1000);

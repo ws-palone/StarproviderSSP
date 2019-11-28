@@ -1,6 +1,7 @@
 package fr.istic.mob.starproviderssp;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -18,9 +19,19 @@ import java.util.Iterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import fr.istic.mob.starproviderssp.database.DB_Access;
+import fr.istic.mob.starproviderssp.database.DB_Starprovider;
+import fr.istic.mob.starproviderssp.table.BusRoutes;
+import fr.istic.mob.starproviderssp.table.Calendar;
+import fr.istic.mob.starproviderssp.table.StopTimes;
+import fr.istic.mob.starproviderssp.table.Stops;
+import fr.istic.mob.starproviderssp.table.Trips;
+
 public class StarManager extends Worker {
 
     ArrayList<String> urlZip = new ArrayList<>();
+    private DB_Starprovider database;
+    private SQLiteDatabase db;
 
 
     public StarManager(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -120,50 +131,74 @@ public class StarManager extends Worker {
 
     private void readLines (ZipEntry entry, ZipInputStream zip) {
         BufferedReader in = new BufferedReader(new InputStreamReader(zip));
+
+        DB_Access dbAccess = new DB_Access(MainActivity.getmInstanceActivity());
         try {
             in.readLine();
             String line;
             while((line = in.readLine()) != null) {
                 StringBuilder responseData = new StringBuilder(line);
-                String[] l = responseData.toString().split(",");
-                insertBDD(l,entry);
+                String[] l = responseData.toString().replace("\"","").split(",");
+                insertBDD(l,entry,dbAccess);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void insertBDD(String[] line, ZipEntry entry) {
+    private void insertBDD(String[] line, ZipEntry entry, DB_Access dbAccess) {
 
         switch(entry.getName()){
             case "calendar.txt":
-                /*setId(Integer.parseInt(line[0]));
-                setMonday(line[1]);
-                setTuesday(line[2]);
-                setWednesday(line[3]);
-                setThursday(line[4]);
-                setFriday(line[5];
-                setSaturday(line[6]);
-                setSunday(line[7]);
-                setStartDate(Integer.parseInt(line[8]));
-                setEndDate(Integer.parseInt(line[9]));*/
+                Calendar calendar= new Calendar();
+                calendar.setMonday(line[1]);
+                calendar.setTuesday(line[2]);
+                calendar.setWednesday(line[3]);
+                calendar.setThursday(line[4]);
+                calendar.setFriday(line[5]);
+                calendar.setSaturday(line[6]);
+                calendar.setSunday(line[7]);
+                calendar.setStartdate(line[8]);
+                calendar.setEnddate(line[9]);
+                dbAccess.insertCalendar(calendar);
                 break;
             case "routes.txt":
-                /*setId(Integer.parseInt(line[0]));
-                setRouteShortName(line[2]);
-                setRouteLongName(line[3]);
-                setRouteDescritpion(line[4]);
-                setRoutetype(line[5]);
-                setRouteColor(line[7]);
-                setRouteTextColor(line[8]);*/
+                BusRoutes busroutes = new BusRoutes();
+                busroutes.setShort_name(line[2]);
+                busroutes.setLong_name(line[3]);
+                busroutes.setDescritpion(line[4]);
+                busroutes.setType(line[5]);
+                busroutes.setColor(line[7]);
+                busroutes.setText_color(line[8]);
+                dbAccess.insertBusRoutes(busroutes);
                 break;
             case "stop.txt":
-                /*setId(line[0]);
-                setStopName(line[2]);
-                setStopDesc(line[3]);
-                setStopLat(line[4]);
-                setStopLon(line[5]);
-                setWheelchairBoarding(Integer.parseInt(line[11]));*/
+                Stops stops = new Stops();
+                stops.setName(line[2]);
+                stops.setDescription(line[3]);
+                stops.setLatitude(line[4]);
+                stops.setLongitude(line[5]);
+                stops.setWheelchairBoarding(line[11]);
+                dbAccess.insertStops(stops);
+                break;
+            case "stop_times.txt":
+                StopTimes stoptimes = new StopTimes();
+                stoptimes.setStopId(line[3]);
+                stoptimes.setTripId(line[0]);
+                stoptimes.setDepartureTime(line[2]);
+                stoptimes.setArrivalTime(line[1]);
+                stoptimes.setStopsequence(line[4]);
+                dbAccess.insertStopsTimes(stoptimes);
+                break;
+            case "trips.txt":
+                Trips trips = new Trips();
+                trips.setBlockId(line[6]);
+                trips.setDirectionId(line[5]);
+                trips.setHeadsign(line[3]);
+                trips.setRouteId(line[0]);
+                trips.setServiceId(line[1]);
+                trips.setWheelchairAccessible(line[8]);
+                dbAccess.insertTrip(trips);
                 break;
         }
     }
