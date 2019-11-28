@@ -3,7 +3,7 @@ package fr.istic.mob.starproviderssp.table;
 import fr.istic.mob.starproviderssp.StarContract;
 
 public class BusRoutesF implements StarContract {
-    
+
     private String short_name = BusRoutes.BusRouteColumns.SHORT_NAME;
     private String long_name = BusRoutes.BusRouteColumns.LONG_NAME;
     private String descritpion = BusRoutes.BusRouteColumns.DESCRIPTION;
