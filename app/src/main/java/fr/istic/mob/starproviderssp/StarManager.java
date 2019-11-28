@@ -22,6 +22,7 @@ public class StarManager extends Worker {
 
     ArrayList<String> urlZip = new ArrayList<>();
 
+
     public StarManager(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
@@ -137,13 +138,13 @@ public class StarManager extends Worker {
         switch(entry.getName()){
             case "calendar.txt":
                 /*setId(Integer.parseInt(line[0]));
-                setMonday(Integer.parseInt(line[1]));
-                setTuesday(Integer.parseInt(line[2]));
-                setWednesday(Integer.parseInt(line[3]));
-                setThursday(Integer.parseInt(line[4]));
-                setFriday(Integer.parseInt(line[5]));
-                setSaturday(Integer.parseInt(line[6]));
-                setSunday(Integer.parseInt(line[7]));
+                setMonday(line[1]);
+                setTuesday(line[2]);
+                setWednesday(line[3]);
+                setThursday(line[4]);
+                setFriday(line[5];
+                setSaturday(line[6]);
+                setSunday(line[7]);
                 setStartDate(Integer.parseInt(line[8]));
                 setEndDate(Integer.parseInt(line[9]));*/
                 break;
