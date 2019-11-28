@@ -3,7 +3,7 @@
     package="fr.istic.mob.starproviderssp.test" >
 
     <uses-sdk
-        android:minSdkVersion="23"
+        android:minSdkVersion="15"
         android:targetSdkVersion="29" />
 
     <instrumentation

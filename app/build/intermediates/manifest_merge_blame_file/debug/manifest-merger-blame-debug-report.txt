@@ -5,222 +5,42 @@
 5    android:versionName="1.0" >
 6
 7    <uses-sdk
-8        android:minSdkVersion="23"
+8        android:minSdkVersion="15"
 8-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml
 9        android:targetSdkVersion="29" />
 9-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml
 10
-11    <uses-permission android:name="android.permission.INTERNET" />
-11-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:5:5-66
-11-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:5:22-64
-12    <uses-permission android:name="android.permission.WAKE_LOCK" />
-12-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:23:5-68
-12-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:23:22-65
-13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-13-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:24:5-79
-13-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:24:22-76
-14    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-14-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:25:5-81
-14-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:25:22-78
-15
-16    <application
-16-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:7:5-22:19
-17        android:allowBackup="true"
-17-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:8:9-35
-18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-18-->[androidx.core:core:1.0.1] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/72b2b92ec4ab73ff21fb9bc348de3b22/core-1.0.1/AndroidManifest.xml:22:18-86
-19        android:debuggable="true"
-20        android:icon="@mipmap/ic_launcher"
-20-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:9:9-43
-21        android:label="@string/app_name"
-21-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:10:9-41
-22        android:roundIcon="@mipmap/ic_launcher_round"
-22-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:11:9-54
-23        android:supportsRtl="true"
-23-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:12:9-35
-24        android:theme="@style/AppTheme"
-24-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:13:9-40
-25        android:usesCleartextTraffic="true" >
-25-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:14:9-44
-26        <activity android:name="fr.istic.mob.starproviderssp.MainActivity" >
-26-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:15:9-21:20
-26-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:15:19-47
-27            <intent-filter>
-27-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:16:13-20:29
-28                <action android:name="android.intent.action.MAIN" />
-28-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:17:17-69
-28-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:17:25-66
-29
-30                <category android:name="android.intent.category.LAUNCHER" />
-30-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:19:17-77
-30-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:19:27-74
-31            </intent-filter>
-32        </activity>
-33
-34        <provider
-34-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:28:9-34:35
-35            android:name="androidx.work.impl.WorkManagerInitializer"
-35-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:29:13-69
-36            android:authorities="fr.istic.mob.starproviderssp.workmanager-init"
-36-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:30:13-68
-37            android:directBootAware="false"
-37-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:31:13-44
-38            android:exported="false"
-38-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:32:13-37
-39            android:multiprocess="true" />
-39-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:33:13-40
-40
-41        <service
-41-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:36:9-41:35
-42            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
-42-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:37:13-88
-43            android:directBootAware="false"
-43-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:38:13-44
-44            android:enabled="@bool/enable_system_alarm_service_default"
-44-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:39:13-72
-45            android:exported="false" />
-45-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:40:13-37
-46        <service
-46-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:42:9-48:35
-47            android:name="androidx.work.impl.background.systemjob.SystemJobService"
-47-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:43:13-84
-48            android:directBootAware="false"
-48-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:44:13-44
-49            android:enabled="@bool/enable_system_job_service_default"
-49-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:45:13-70
-50            android:exported="true"
-50-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:46:13-36
-51            android:permission="android.permission.BIND_JOB_SERVICE" />
-51-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:47:13-69
-52
-53        <receiver
-53-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:50:9-55:35
-54            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
-54-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:51:13-88
-55            android:directBootAware="false"
-55-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:52:13-44
-56            android:enabled="true"
-56-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:53:13-35
-57            android:exported="false" />
-57-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:54:13-37
-58        <receiver
-58-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:56:9-65:20
-59            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
-59-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:57:13-106
-60            android:directBootAware="false"
-60-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:58:13-44
-61            android:enabled="false" >
-61-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:59:13-36
-62            <intent-filter>
-62-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:61:13-64:29
-63                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-63-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:62:17-87
-63-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:62:25-84
-64                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-64-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:63:17-90
-64-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:63:25-87
-65            </intent-filter>
-66        </receiver>
-67        <receiver
-67-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:66:9-75:20
-68            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
-68-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:67:13-104
-69            android:directBootAware="false"
-69-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:68:13-44
-70            android:enabled="false" >
-70-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:69:13-36
-71            <intent-filter>
-71-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:71:13-74:29
-72                <action android:name="android.intent.action.BATTERY_OKAY" />
-72-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:72:17-77
-72-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:72:25-74
-73                <action android:name="android.intent.action.BATTERY_LOW" />
-73-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:73:17-76
-73-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:73:25-73
-74            </intent-filter>
-75        </receiver>
-76        <receiver
-76-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:76:9-85:20
-77            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
-77-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:77:13-104
-78            android:directBootAware="false"
-78-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:78:13-44
-79            android:enabled="false" >
-79-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:79:13-36
-80            <intent-filter>
-80-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:81:13-84:29
-81                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
-81-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:82:17-83
-81-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:82:25-80
-82                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
-82-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:83:17-82
-82-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:83:25-79
-83            </intent-filter>
-84        </receiver>
-85        <receiver
-85-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:86:9-94:20
-86            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
-86-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:87:13-103
-87            android:directBootAware="false"
-87-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:88:13-44
-88            android:enabled="false" >
-88-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:89:13-36
-89            <intent-filter>
-89-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:91:13-93:29
-90                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-90-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:92:17-79
-90-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:92:25-76
-91            </intent-filter>
-92        </receiver>
-93        <receiver
-93-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:95:9-105:20
-94            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
-94-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:96:13-88
-95            android:directBootAware="false"
-95-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:97:13-44
-96            android:enabled="false" >
-96-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:98:13-36
-97            <intent-filter>
-97-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:100:13-104:29
-98                <action android:name="android.intent.action.BOOT_COMPLETED" />
-98-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:101:17-79
-98-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:101:25-76
-99                <action android:name="android.intent.action.TIME_SET" />
-99-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:102:17-73
-99-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:102:25-70
-100                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-100-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:103:17-81
-100-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:103:25-78
-101            </intent-filter>
-102        </receiver>
-103        <receiver
-103-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:106:9-115:20
-104            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
-104-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:107:13-99
-105            android:directBootAware="false"
-105-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:108:13-44
-106            android:enabled="@bool/enable_system_alarm_service_default"
-106-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:109:13-72
-107            android:exported="false" >
-107-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:110:13-37
-108            <intent-filter>
-108-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:112:13-114:29
-109                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
-109-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:113:17-98
-109-->[android.arch.work:work-runtime:1.0.0-alpha11] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/a3a0ee8638f90feaab867ba12e59557e/jetified-work-runtime-1.0.0-alpha11/AndroidManifest.xml:113:25-95
-110            </intent-filter>
-111        </receiver>
-112
-113        <provider
-113-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/bba9e662e9f4bf0da774229f97b853fc/lifecycle-process-2.0.0/AndroidManifest.xml:23:9-27:43
-114            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-114-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/bba9e662e9f4bf0da774229f97b853fc/lifecycle-process-2.0.0/AndroidManifest.xml:24:13-79
-115            android:authorities="fr.istic.mob.starproviderssp.lifecycle-process"
-115-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/bba9e662e9f4bf0da774229f97b853fc/lifecycle-process-2.0.0/AndroidManifest.xml:25:13-69
-116            android:exported="false"
-116-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/bba9e662e9f4bf0da774229f97b853fc/lifecycle-process-2.0.0/AndroidManifest.xml:26:13-37
-117            android:multiprocess="true" />
-117-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/bba9e662e9f4bf0da774229f97b853fc/lifecycle-process-2.0.0/AndroidManifest.xml:27:13-40
-118    </application>
-119
-120</manifest>
+11    <application
+11-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:5:5-19:19
+12        android:allowBackup="true"
+12-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:6:9-35
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.0.1] /Users/arthurohigh/.gradle/caches/transforms-2/files-2.1/72b2b92ec4ab73ff21fb9bc348de3b22/core-1.0.1/AndroidManifest.xml:22:18-86
+14        android:debuggable="true"
+15        android:icon="@mipmap/ic_launcher"
+15-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:7:9-43
+16        android:label="@string/app_name"
+16-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:8:9-41
+17        android:roundIcon="@mipmap/ic_launcher_round"
+17-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:9:9-54
+18        android:supportsRtl="true"
+18-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:10:9-35
+19        android:theme="@style/AppTheme" >
+19-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:11:9-40
+20        <activity android:name="fr.istic.mob.starproviderssp.MainActivity" >
+20-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:12:9-18:20
+20-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:12:19-47
+21            <intent-filter>
+21-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:13:13-17:29
+22                <action android:name="android.intent.action.MAIN" />
+22-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:14:17-69
+22-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:14:25-66
+23
+24                <category android:name="android.intent.category.LAUNCHER" />
+24-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:16:17-77
+24-->/Users/arthurohigh/git/StarproviderSSP/app/src/main/AndroidManifest.xml:16:27-74
+25            </intent-filter>
+26        </activity>
+27    </application>
+28
+29</manifest>

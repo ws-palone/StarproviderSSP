@@ -6,10 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+
     <DatePicker
-        android:id="@+id/datePicker"
+        android:id="@+id/simpleDatePicker"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="153dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,32 +19,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TimePicker
-        android:id="@+id/timePicker"
+        android:id="@+id/timePicker1"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="153dp"
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
-
-    <Spinner
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker" />
-
-    <Spinner
-        android:id="@+id/direction"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line" />
+        app:layout_constraintTop_toBottomOf="@+id/simpleDatePicker" />
 
     <Button
-        android:id="@+id/pick_date_hour"
+        android:id="@+id/button"
         android:layout_width="99dp"
         android:layout_height="43dp"
         android:layout_marginStart="156dp"
@@ -51,5 +37,8 @@
         android:text="@string/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/direction" />
+        app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
