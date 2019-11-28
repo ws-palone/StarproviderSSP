@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import fr.istic.mob.starproviderssp.StarContract;
 import fr.istic.mob.starproviderssp.table.BusRoutes;
 import fr.istic.mob.starproviderssp.table.Calendar;
+import fr.istic.mob.starproviderssp.table.StopTimes;
 import fr.istic.mob.starproviderssp.table.Stops;
 import fr.istic.mob.starproviderssp.table.Trips;
 
@@ -67,11 +68,22 @@ public class DB_Access {
 
     public void insertTrip(Trips trip){
         ContentValues values = new ContentValues();
-        values.put(StarContract.Trips.TripColumns.,trip.getDescription());
-        values.put(StarContract.Stops.StopColumns.LATITUDE,stops.getLatitude());
-        values.put(StarContract.Stops.StopColumns.LONGITUDE,stops.getLongitude());
-        values.put(StarContract.Stops.StopColumns.NAME,stops.getName());
-        values.put(StarContract.Stops.StopColumns.WHEELCHAIR_BOARDING,stops.getWheelchairBoarding());
+        values.put(StarContract.Trips.TripColumns.SERVICE_ID,trip.getServiceId());
+        values.put(StarContract.Trips.TripColumns.ROUTE_ID,trip.getRouteId());
+        values.put(StarContract.Trips.TripColumns.HEADSIGN,trip.getHeadsign());
+        values.put(StarContract.Trips.TripColumns.DIRECTION_ID,trip.getDirectionId());
+        values.put(StarContract.Trips.TripColumns.BLOCK_ID,trip.getBlockId());
+        values.put(StarContract.Trips.TripColumns.WHEELCHAIR_ACCESSIBLE,trip.getWheelchairAccessible());
+        database.insert(StarContract.Stops.CONTENT_PATH,null,values);
+    }
+
+    public void insertStopsTimes(StopTimes stoptimes){
+        ContentValues values = new ContentValues();
+        values.put(StarContract.StopTimes.StopTimeColumns.TRIP_ID,stoptimes.getTripId());
+        values.put(StarContract.StopTimes.StopTimeColumns.ARRIVAL_TIME,stoptimes.getArrivalTime());
+        values.put(StarContract.StopTimes.StopTimeColumns.DEPARTURE_TIME,stoptimes.getDepartureTime());
+        values.put(StarContract.StopTimes.StopTimeColumns.STOP_ID,stoptimes.getStopId());
+        values.put(StarContract.StopTimes.StopTimeColumns.STOP_SEQUENCE,stoptimes.getStopsequence());
         database.insert(StarContract.Stops.CONTENT_PATH,null,values);
     }
 }

@@ -6,8 +6,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import androidx.annotation.RequiresApi;
@@ -53,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         getJSON();
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        for(int i = 0; i<30; i++){
+            adapter.add("" + i);
+        }
+        Spinner spin = findViewById(R.id.line);
+        spin.setAdapter(adapter);
         createNotification();
         MainAct = this;
 
