@@ -2,6 +2,8 @@ package fr.istic.mob.starproviderssp;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import fr.istic.mob.starproviderssp.database.DB_Access;
+import fr.istic.mob.starproviderssp.database.DB_Starprovider;
 
 import static android.os.SystemClock.sleep;
 
@@ -57,8 +62,15 @@ public class MainActivity extends AppCompatActivity {
         getJSON();
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        for(int i = 0; i<30; i++){
-            adapter.add("" + i);
+        String selectQuery ="SELECT " + StarContract.BusRoutes.BusRouteColumns._ID + " FROM " +
+                StarContract.BusRoutes.CONTENT_PATH + ";";
+        DB_Starprovider database = new DB_Starprovider(this);
+        Cursor cursor = database.getWritableDatabase().rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        int u = 100;
+        while (cursor.isAfterLast() == false){
+            adapter.add("ssssss" + u);
+            u++;
         }
         Spinner spin = findViewById(R.id.line);
         spin.setAdapter(adapter);
