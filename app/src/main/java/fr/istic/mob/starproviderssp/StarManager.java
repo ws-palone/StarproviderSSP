@@ -1,13 +1,8 @@
 package fr.istic.mob.starproviderssp;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -19,12 +14,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class StarManager extends Worker {
 
-    String urlZip;
+    ArrayList<String> urlZip = new ArrayList<>();
 
     public StarManager(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -33,12 +29,16 @@ public class StarManager extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        String lien = getLien();
-        unzip(lien);
+        ArrayList liens = getLien();
+        Iterator<String> it = liens.iterator();
+        while(it.hasNext()){
+            String lien = it.next();
+            unzip(lien);
+        }
         return Result.SUCCESS;
     }
 
-    private String getLien(){
+    private ArrayList<String> getLien(){
         try{
             String myUrl = "https://data.explore.star.fr/explore/dataset/tco-busmetro-horaires-gtfs-versions-td/download/?format=json&timezone=Europe/Berlin";
             URL url = new URL(myUrl);
@@ -56,9 +56,9 @@ public class StarManager extends Worker {
                         String result = arrSplit[3];
                         arrUrl[y] = result;
                         y++;
+                        urlZip.add(arrUrl[0]);
                     }
                 }
-                urlZip = arrUrl[0];
                 return urlZip;
             } finally {
                 connexion.disconnect();
@@ -78,18 +78,23 @@ public class StarManager extends Worker {
             while(entry != null) {
                 switch(entry.getName()) {
                     case "calendar.txt":
-                        entry = inputStreamzip.getNextEntry();
-                        break;
-                    case "routes.txt":
+                        readLines(entry,inputStreamzip);
                         entry = inputStreamzip.getNextEntry();
                         break;
                     case "stops.txt":
+                        readLines(entry,inputStreamzip);
+                        entry = inputStreamzip.getNextEntry();
+                        break;
+                    case "routes.txt":
+                        readLines(entry,inputStreamzip);
                         entry = inputStreamzip.getNextEntry();
                         break;
                     case "stop_times.txt":
+                        readLines(entry,inputStreamzip);
                         entry = inputStreamzip.getNextEntry();
                         break;
                     case "trips.txt":
+                        readLines(entry,inputStreamzip);
                         entry = inputStreamzip.getNextEntry();
                         break;
                     default:
@@ -110,5 +115,47 @@ public class StarManager extends Worker {
         }
         is.close();
         return sb.toString();
+    }
+
+    private void readLines (ZipEntry entry, ZipInputStream zip) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(zip));
+        try {
+            in.readLine();
+            String line;
+            while((line = in.readLine()) != null) {
+                StringBuilder responseData = new StringBuilder(line);
+                String[] l = responseData.toString().split(",");
+                insertBDD(l,entry);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void insertBDD(String[] line, ZipEntry entry) {
+
+        switch(entry.getName()){
+            case "calendar.txt":
+                /*setId(Integer.parseInt(line[0]));
+                setMonday(Integer.parseInt(line[1]));
+                setTuesday(Integer.parseInt(line[2]));
+                setWednesday(Integer.parseInt(line[3]));
+                setThursday(Integer.parseInt(line[4]));
+                setFriday(Integer.parseInt(line[5]));
+                setSaturday(Integer.parseInt(line[6]));
+                setSunday(Integer.parseInt(line[7]));
+                setStartDate(Integer.parseInt(line[8]));
+                setEndDate(Integer.parseInt(line[9]));*/
+                break;
+            case "routes.txt":
+                /*setId(Integer.parseInt(line[0]));
+                setRouteShortName(line[2]);
+                setRouteLongName(line[3]);
+                setRouteDescritpion(line[4]);
+                setRoutetype(line[5]);
+                setRouteColor(line[7]);
+                setRouteTextColor(line[8]);*/
+                break;
+        }
     }
 }
