@@ -74,7 +74,7 @@ public class DB_Access {
         values.put(StarContract.Trips.TripColumns.DIRECTION_ID,trip.getDirectionId());
         values.put(StarContract.Trips.TripColumns.BLOCK_ID,trip.getBlockId());
         values.put(StarContract.Trips.TripColumns.WHEELCHAIR_ACCESSIBLE,trip.getWheelchairAccessible());
-        database.insert(StarContract.Stops.CONTENT_PATH,null,values);
+        database.insert(StarContract.Trips.CONTENT_PATH,null,values);
     }
 
     public void insertStopsTimes(StopTimes stoptimes){
@@ -84,6 +84,6 @@ public class DB_Access {
         values.put(StarContract.StopTimes.StopTimeColumns.DEPARTURE_TIME,stoptimes.getDepartureTime());
         values.put(StarContract.StopTimes.StopTimeColumns.STOP_ID,stoptimes.getStopId());
         values.put(StarContract.StopTimes.StopTimeColumns.STOP_SEQUENCE,stoptimes.getStopsequence());
-        database.insert(StarContract.Stops.CONTENT_PATH,null,values);
+        database.insert(StarContract.StopTimes.CONTENT_PATH,null,values);
     }
 }

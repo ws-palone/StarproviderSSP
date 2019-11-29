@@ -2,7 +2,6 @@ package fr.istic.mob.starproviderssp;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;

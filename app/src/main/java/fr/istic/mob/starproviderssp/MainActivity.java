@@ -34,13 +34,16 @@ public class MainActivity extends AppCompatActivity {
     int PROGRESS_CURRENT = 0;
     private static MainActivity MainAct;
     public static MainActivity getmInstanceActivity(){return MainAct;}
-
+    private DB_Starprovider database;
+    private SQLiteDatabase db;
     NotificationManagerCompat notificationManager;
 
     NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        database = new DB_Starprovider(this);
+        db=database.getWritableDatabase();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         createNotificationChannel();
@@ -59,13 +62,11 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, timeToString(hour,minute), Toast.LENGTH_LONG).show();
             }
         });
-        getJSON();
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
+        /*ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         String selectQuery ="SELECT " + StarContract.BusRoutes.BusRouteColumns._ID + " FROM " +
                 StarContract.BusRoutes.CONTENT_PATH + ";";
-        DB_Starprovider database = new DB_Starprovider(this);
-        Cursor cursor = database.getWritableDatabase().rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
         int u = 100;
         while (cursor.isAfterLast() == false){
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             u++;
         }
         Spinner spin = findViewById(R.id.line);
-        spin.setAdapter(adapter);
+        spin.setAdapter(adapter);*/
         createNotification();
         MainAct = this;
 
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 .setProgress(0, 0, false);
         notificationManager.notify(1, builder.build());
 
+        getJSON();
 
     }
 
