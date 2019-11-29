@@ -1,7 +1,9 @@
 package fr.istic.mob.starproviderssp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -42,13 +44,14 @@ public class StarManager extends Worker {
     @Override
     public Result doWork() {
         ArrayList liens = getLien();
-        DB_Starprovider db_starprovider = new DB_Starprovider(MainActivity.getmInstanceActivity());
-        db_starprovider.getWritableDatabase();
+        database = new DB_Starprovider(MainActivity.getmInstanceActivity());
+        db = database.getWritableDatabase();
         Iterator<String> it = liens.iterator();
         while(it.hasNext()){
             String lien = it.next();
             unzip(lien);
         }
+        db.close();
         return Result.SUCCESS;
     }
 
@@ -57,14 +60,30 @@ public class StarManager extends Worker {
             String myUrl = "https://data.explore.star.fr/explore/dataset/tco-busmetro-horaires-gtfs-versions-td/download/?format=json&timezone=Europe/Berlin";
             URL url = new URL(myUrl);
             HttpURLConnection connexion = (HttpURLConnection) url.openConnection();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getmInstanceActivity());
             try {
                 InputStream in = new BufferedInputStream(connexion.getInputStream());
                 String json = readStream(in);
                 String[] arrStrg = json.split(",");
                 String[] arrUrl = new String[10];
                 int y =0;
+                int nzip = 1;
                 for (int i = 0; i < arrStrg.length; i++){
                     String value = arrStrg[i];
+                    String numzip = Integer.toString(nzip);
+                    //Prends en compte seulement les cas où il y a un nouveau fichier;
+                    /*if(value.contains("debutvalidite")){
+                        String[] arrSplit = value.split("\"");
+                        if (!arrSplit[3].equals(prefs.getString(numzip,"")) ) {
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString(numzip, arrSplit[3]);
+                            editor.commit();
+                        } else {
+                            urlZip.clear();
+                            return urlZip;
+                        }
+                        nzip++;
+                    }*/
                     if(value.contains("url")){
                         String[] arrSplit = value.split("\"");
                         String result = arrSplit[3];

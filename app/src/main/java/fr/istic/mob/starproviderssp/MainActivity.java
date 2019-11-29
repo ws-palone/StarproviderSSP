@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(1, builder.build());
 
         getJSON();
-
+        db.close();
     }
 
     public void createNotification() {
