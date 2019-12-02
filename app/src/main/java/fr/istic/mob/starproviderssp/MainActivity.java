@@ -2,16 +2,24 @@ package fr.istic.mob.starproviderssp;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.RequiresApi;
@@ -21,8 +29,10 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import fr.istic.mob.starproviderssp.database.DB_Access;
+import java.util.List;
+
 import fr.istic.mob.starproviderssp.database.DB_Starprovider;
+import fr.istic.mob.starproviderssp.table.BusRoutes;
 
 import static android.os.SystemClock.sleep;
 
@@ -61,26 +71,44 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, timeToString(hour,minute), Toast.LENGTH_LONG).show();
             }
         });
-        /*ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        String selectQuery ="SELECT " + StarContract.BusRoutes.BusRouteColumns._ID + " FROM " +
-                StarContract.BusRoutes.CONTENT_PATH + ";";
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        cursor.moveToFirst();
-        int u = 100;
-        while (cursor.isAfterLast() == false){
-            adapter.add("ssssss" + u);
-            u++;
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        String[] backcolor = new String[152];
+        String[] lineData = new String[152];
+        String[] txtcolor = new String[152];
+        int position;
+        final SQLiteDatabase dbLine = database.getReadableDatabase();
+        String query = "SELECT * FROM "+ StarContract.BusRoutes.CONTENT_PATH;
+        Cursor cursor = dbLine.rawQuery(query,null);
+        cursor.moveToNext();
+        while (!cursor.isAfterLast()){
+            position = cursor.getInt(0)-1;
+            lineData[position] = cursor.getString(1);
+            backcolor[position] = cursor.getString(5);
+            txtcolor[position] = cursor.getString(6);
+            cursor.moveToNext();
         }
-        Spinner spin = findViewById(R.id.line);
-        spin.setAdapter(adapter);*/
+        final Spinner spin = findViewById(R.id.line);
+        CustomAdapter adapter2 = new CustomAdapter(this,lineData,backcolor,txtcolor);
+        spin.setAdapter(adapter2);
+
+        final Spinner spinDir = findViewById(R.id.direction);
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                spinDir.setAdapter(getDirection(spin.getSelectedItem().toString(), dbLine));
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         createNotification();
         MainAct = this;
 
         for (int i = 0; i < 10; i++) {
-            sleep(1000);
+
             Log.d("Sleep", " i : " + i);
-            PROGRESS_CURRENT += 10;
+            PROGRESS_CURRENT += 100;
             builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
             notificationManager.notify(1, builder.build());
 
@@ -90,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(1, builder.build());
 
         getJSON();
-        db.close();
     }
 
     public void createNotification() {
@@ -172,4 +199,20 @@ public class MainActivity extends AppCompatActivity {
         String time = hourToString+":"+minutetoString;
         return time;
     }
+
+    public SpinnerAdapter getDirection (String line, SQLiteDatabase db){
+        ArrayAdapter<CharSequence> adapterDir = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
+        adapterDir.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        String lineDataDir = new String();
+        String queryDir = "SELECT * FROM busroute WHERE "+StarContract.BusRoutes.BusRouteColumns.SHORT_NAME+" = \'"+line+"\'";
+        Cursor cursorDir = db.rawQuery(queryDir,null);
+        cursorDir.moveToNext();
+        lineDataDir = cursorDir.getString(2);
+        String[] dirs = lineDataDir.split("<>");
+        for(String e : dirs) {
+            adapterDir.add(e);
+        }
+        return adapterDir;
+    }
 }
+

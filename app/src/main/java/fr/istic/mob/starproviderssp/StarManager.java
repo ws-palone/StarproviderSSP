@@ -55,7 +55,7 @@ public class StarManager extends Worker {
                 i++;
             }
         }
-        db.close();
+
         return Result.SUCCESS;
     }
 
