@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private DB_Starprovider database;
     private SQLiteDatabase db;
     NotificationManagerCompat notificationManager;
-
     NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
 
     @Override
