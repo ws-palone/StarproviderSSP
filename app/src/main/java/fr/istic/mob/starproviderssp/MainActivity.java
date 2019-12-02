@@ -2,6 +2,7 @@ package fr.istic.mob.starproviderssp;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
@@ -85,9 +86,18 @@ public class MainActivity extends AppCompatActivity {
         */
 
         getJSON();
+
+
         db.close();
 
     }
+    public void restart(){
+        Intent restartIntent = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage(getBaseContext().getPackageName());
+        restartIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(restartIntent);
+    }
+
 
 
     public void updateNotif(int i) {
