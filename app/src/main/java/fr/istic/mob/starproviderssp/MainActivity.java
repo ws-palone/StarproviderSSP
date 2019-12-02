@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static MainActivity MainAct;
     public static MainActivity getmInstanceActivity(){return MainAct;}
     private DB_Starprovider database;
+    private DB_Access dbAccess;
     private SQLiteDatabase db;
     NotificationManagerCompat notificationManager;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         database = new DB_Starprovider(this);
         db=database.getWritableDatabase();
+        getJSON();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         createNotificationChannel();
@@ -62,19 +64,18 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, timeToString(hour,minute), Toast.LENGTH_LONG).show();
             }
         });
-        /*ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
+       ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        String selectQuery ="SELECT " + StarContract.BusRoutes.BusRouteColumns._ID + " FROM " +
-                StarContract.BusRoutes.CONTENT_PATH + ";";
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        cursor.moveToFirst();
+
         int u = 100;
-        while (cursor.isAfterLast() == false){
-            adapter.add("ssssss" + u);
+        String ee = database.lineSpinner();
+        while (u<130){
+
+            adapter.add(ee);
             u++;
         }
         Spinner spin = findViewById(R.id.line);
-        spin.setAdapter(adapter);*/
+        spin.setAdapter(adapter);
         createNotification();
         MainAct = this;
 
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 .setProgress(0, 0, false);
         notificationManager.notify(1, builder.build());
 
-        getJSON();
+
 
     }
 

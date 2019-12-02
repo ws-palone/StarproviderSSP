@@ -1,6 +1,7 @@
 package fr.istic.mob.starproviderssp.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -41,6 +42,15 @@ public class DB_Starprovider extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public String lineSpinner () {
+        String lineData = new String();
+        SQLiteDatabase database = this.getReadableDatabase();
+        String query = "SELECT "+StarContract.BusRoutes.BusRouteColumns.LONG_NAME+" FROM busroute";
+        Cursor cursor = database.rawQuery(query,null);
+        lineData = cursor.getString(0);
+        return lineData;
     }
 
     //le SQL de création de la base
