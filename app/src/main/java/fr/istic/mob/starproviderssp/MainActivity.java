@@ -4,14 +4,18 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TimePicker;
 
 import androidx.annotation.RequiresApi;
@@ -20,6 +24,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import java.util.Observer;
 
 import fr.istic.mob.starproviderssp.database.DB_Access;
 import fr.istic.mob.starproviderssp.database.DB_Starprovider;
@@ -64,23 +70,36 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, timeToString(hour,minute), Toast.LENGTH_LONG).show();
             }
         });
-       ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        int u = 100;
-        String ee = database.lineSpinner();
-        while (u<130){
-
-            adapter.add(ee);
-            u++;
+        String lineData = new String();
+        final SQLiteDatabase dbLine = database.getReadableDatabase();
+        String query = "SELECT * FROM busroute";
+        Cursor cursor = dbLine.rawQuery(query,null);
+        cursor.moveToNext();
+        while (!cursor.isAfterLast()){
+            lineData = cursor.getString(1);
+            adapter.add(lineData);
+            cursor.moveToNext();
         }
-        Spinner spin = findViewById(R.id.line);
+        final Spinner spin = findViewById(R.id.line);
         spin.setAdapter(adapter);
+        final Spinner spinDir = findViewById(R.id.direction);
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                spinDir.setAdapter(getDirection(spin.getSelectedItem().toString(), dbLine));
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
         createNotification();
         MainAct = this;
 
         for (int i = 0; i < 10; i++) {
-            sleep(1000);
+            //sleep(1000);
             Log.d("Sleep", " i : " + i);
             PROGRESS_CURRENT += 10;
             builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
@@ -90,8 +109,6 @@ public class MainActivity extends AppCompatActivity {
         builder.setContentText("Download complete")
                 .setProgress(0, 0, false);
         notificationManager.notify(1, builder.build());
-
-
 
     }
 
@@ -174,4 +191,20 @@ public class MainActivity extends AppCompatActivity {
         String time = hourToString+":"+minutetoString;
         return time;
     }
+
+    public SpinnerAdapter getDirection (String line, SQLiteDatabase db){
+        ArrayAdapter<CharSequence> adapterDir = new ArrayAdapter <CharSequence> (getApplicationContext(), android.R.layout.simple_spinner_item);
+        adapterDir.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        String lineDataDir = new String();
+        String queryDir = "SELECT * FROM busroute WHERE "+StarContract.BusRoutes.BusRouteColumns.SHORT_NAME+" = \'"+line+"\'";
+        Cursor cursorDir = db.rawQuery(queryDir,null);
+        cursorDir.moveToNext();
+        lineDataDir = cursorDir.getString(2);
+        String[] dirs = lineDataDir.split("<>");
+        for(String e : dirs) {
+            adapterDir.add(e);
+        }
+        return adapterDir;
+    }
+
 }

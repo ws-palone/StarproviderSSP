@@ -2,8 +2,11 @@ package fr.istic.mob.starproviderssp.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 import fr.istic.mob.starproviderssp.StarContract;
 import fr.istic.mob.starproviderssp.table.BusRoutes;
@@ -16,6 +19,7 @@ public class DB_Access {
 
     private SQLiteDatabase database;
     private DB_Starprovider dbstar;
+    private StarContract sc;
 
     /**
      *
@@ -27,7 +31,6 @@ public class DB_Access {
     }
 
     public void open() throws SQLException {
-
         database = dbstar.getWritableDatabase();
     }
 
@@ -86,4 +89,6 @@ public class DB_Access {
         values.put(StarContract.StopTimes.StopTimeColumns.STOP_SEQUENCE,stoptimes.getStopsequence());
         database.insert(StarContract.StopTimes.CONTENT_PATH,null,values);
     }
+
+
 }

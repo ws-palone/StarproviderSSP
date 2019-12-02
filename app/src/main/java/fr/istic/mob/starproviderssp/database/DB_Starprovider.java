@@ -44,14 +44,6 @@ public class DB_Starprovider extends SQLiteOpenHelper {
 
     }
 
-    public String lineSpinner () {
-        String lineData = new String();
-        SQLiteDatabase database = this.getReadableDatabase();
-        String query = "SELECT "+StarContract.BusRoutes.BusRouteColumns.LONG_NAME+" FROM busroute";
-        Cursor cursor = database.rawQuery(query,null);
-        lineData = cursor.getString(0);
-        return lineData;
-    }
 
     //le SQL de création de la base
     private static final String createBus = "CREATE TABLE IF NOT EXISTS  "+ StarContract.BusRoutes.CONTENT_PATH + " ("
