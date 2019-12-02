@@ -72,6 +72,7 @@ public class StarManager extends Worker {
                 String[] arrUrl = new String[10];
                 int y =0;
                 int nzip = 1;
+                int notif =0;
                 for (int i = 0; i < arrStrg.length; i++){
                     boolean premierfois = false;
                     String value = arrStrg[i];
@@ -81,6 +82,10 @@ public class StarManager extends Worker {
                         String[] arrSplit = value.split("\"");
                         if(prefs.getString(numzip,"")==""){
                             premierfois=true;
+                            if(notif==0){
+                                MainActivity.getmInstanceActivity().createNotification();
+                                notif++;
+                            }
                         }
                         if (!arrSplit[3].equals(prefs.getString(numzip, ""))) {
                             SharedPreferences.Editor editor = prefs.edit();
@@ -88,6 +93,10 @@ public class StarManager extends Worker {
                             editor.commit();
                             if (database != null) {
                                 database.onDelete(db);
+                            }
+                            if(notif==0){
+                                MainActivity.getmInstanceActivity().createNotification();
+                                notif++;
                             }
                         } else {
                             urlZip.clear();
@@ -111,6 +120,7 @@ public class StarManager extends Worker {
                 connexion.disconnect();
             }
         }catch (Exception e){
+            MainActivity.getmInstanceActivity().createNotification2();
             e.printStackTrace();
         }
         return null;
@@ -127,22 +137,27 @@ public class StarManager extends Worker {
                     case "calendar.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "stops.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "routes.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "stop_times.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "trips.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     default:
                         entry = inputStreamzip.getNextEntry();
@@ -150,6 +165,7 @@ public class StarManager extends Worker {
                 }
             }
         } catch (IOException e) {
+            MainActivity.getmInstanceActivity().createNotification3();
             e.printStackTrace();
         }
     }

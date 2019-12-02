@@ -44,13 +44,15 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        String backcol ="#" + backcolor[i];
-        String txtcol = "#" + txtcolor[i];
         view = inflater.inflate(R.layout.support_simple_spinner_dropdown_item, null);
-        view.setBackgroundColor(Color.parseColor(backcol));
-        TextView txtview = (TextView) view;
-        txtview.setText(linedata[i]);
-        txtview.setTextColor(Color.parseColor(txtcol));
+        if(backcolor[i]!=null) {
+            String backcol = "#" + backcolor[i];
+            String txtcol = "#" + txtcolor[i];
+            view.setBackgroundColor(Color.parseColor(backcol));
+            TextView txtview = (TextView) view;
+            txtview.setText(linedata[i]);
+            txtview.setTextColor(Color.parseColor(txtcol));
+        }
         return view;
     }
 }

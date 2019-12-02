@@ -6,7 +6,7 @@
     <string name="Select_line">Select line</string>
     <string name="Select_direction">Select direction</string>
     <string name="newCSV">Un nouveau CSV a été trouvé sur le site</string>
-    <string name="newCSVtxt">Cliquez sur la notification pour télécharger la nouvelle base de données</string>
+    <string name="newCSVtxt">Un nouveau CSV a été ajouté à la BDD</string>
     <string name="Error">Erreur</string>
     <string name="txtErrorInternet">Erreur lors de la connection au site, vérifiez votre connexion à internet.</string>
     <string name="txtErrorZIP">Impossible d\'extraire le fichier zip téléchargé.</string>
