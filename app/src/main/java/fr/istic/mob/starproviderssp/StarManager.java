@@ -46,11 +46,14 @@ public class StarManager extends Worker {
         ArrayList liens = getLien();
         database = new DB_Starprovider(MainActivity.getmInstanceActivity());
         db = database.getWritableDatabase();
+
         if(liens != null){
             Iterator<String> it = liens.iterator();
+            int i =0;
             while(it.hasNext()){
                 String lien = it.next();
-                unzip(lien);
+                unzip(lien,i);
+                i++;
             }
             db.close();
             return Result.SUCCESS;
@@ -77,25 +80,31 @@ public class StarManager extends Worker {
                 int quentin = 0;
 
                 for (int i = 0; i < arrStrg.length; i++){
+                    boolean premierfois = false;
                     String value = arrStrg[i];
                     String numzip = Integer.toString(nzip);
                     //Prends en compte seulement les cas où il y a un nouveau fichier;
-                    if(value.contains("debutvalidite")){
-                        if (quentin == 0){
+                    if(value.contains("debutvalidite")) {
+                         if (quentin == 0){
                             MainActivity.getmInstanceActivity().createNotification();
                             quentin++;
                         }
                         String[] arrSplit = value.split("\"");
-                        if (!arrSplit[3].equals(prefs.getString(numzip,"")) ) {
+                        if(prefs.getString(numzip,"")==""){
+                            premierfois=true;
+                        }
+                        if (!arrSplit[3].equals(prefs.getString(numzip, ""))) {
                             SharedPreferences.Editor editor = prefs.edit();
                             editor.putString(numzip, arrSplit[3]);
                             editor.commit();
+                            if (database != null) {
+                                database.onDelete(db);
+                            }
                         } else {
                             urlZip.clear();
                             return urlZip;
                         }
                         nzip++;
-
                     }
                     if(value.contains("url")){
                         String[] arrSplit = value.split("\"");
@@ -103,6 +112,9 @@ public class StarManager extends Worker {
                         arrUrl[y] = result;
                         y++;
                         urlZip.add(arrUrl[0]);
+                    }
+                    if(premierfois){
+                        return urlZip;
                     }
                 }
                 return urlZip;
@@ -119,7 +131,7 @@ public class StarManager extends Worker {
         return null;
     }
 
-    private void unzip(String urlZip) {
+    private void unzip(String urlZip, int i) {
         try {
             URL urlzip = new URL(urlZip);
             HttpURLConnection zipConnexion = (HttpURLConnection) urlzip.openConnection();
@@ -128,27 +140,27 @@ public class StarManager extends Worker {
             while(entry != null) {
                 switch(entry.getName()) {
                     case "calendar.txt":
-                        readLines(entry,inputStreamzip);
+                        readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
                         MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "stops.txt":
-                        readLines(entry,inputStreamzip);
+                        readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
                         MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "routes.txt":
-                        readLines(entry,inputStreamzip);
+                        readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
                         MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "stop_times.txt":
-                        readLines(entry,inputStreamzip);
+                        readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
                         MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "trips.txt":
-                        readLines(entry,inputStreamzip);
+                        readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
                         MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
@@ -174,7 +186,7 @@ public class StarManager extends Worker {
         return sb.toString();
     }
 
-    private void readLines (ZipEntry entry, ZipInputStream zip) {
+    private void readLines (ZipEntry entry, ZipInputStream zip, int i) {
         BufferedReader in = new BufferedReader(new InputStreamReader(zip));
 
         DB_Access dbAccess = new DB_Access(MainActivity.getmInstanceActivity());
@@ -184,7 +196,7 @@ public class StarManager extends Worker {
             while((line = in.readLine()) != null) {
                 StringBuilder responseData = new StringBuilder(line);
                 String[] l = responseData.toString().replace("\"","").split(",");
-                insertBDD(l,entry,dbAccess);
+                insertBDD(l,entry,dbAccess,i);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -193,8 +205,7 @@ public class StarManager extends Worker {
         }
     }
 
-
-    private void insertBDD(String[] line, ZipEntry entry, DB_Access dbAccess) {
+    private void insertBDD(String[] line, ZipEntry entry, DB_Access dbAccess, int i) {
         switch(entry.getName()){
             case "calendar.txt":
                 Calendar calendar= new Calendar();
@@ -210,23 +221,27 @@ public class StarManager extends Worker {
                 dbAccess.insertCalendar(calendar);
                 break;
             case "routes.txt":
-                BusRoutes busroutes = new BusRoutes();
-                busroutes.setShort_name(line[2]);
-                busroutes.setLong_name(line[3]);
-                busroutes.setDescritpion(line[4]);
-                busroutes.setType(line[5]);
-                busroutes.setColor(line[7]);
-                busroutes.setText_color(line[8]);
-                dbAccess.insertBusRoutes(busroutes);
+                if(i==0) {
+                    BusRoutes busroutes = new BusRoutes();
+                    busroutes.setShort_name(line[2]);
+                    busroutes.setLong_name(line[3]);
+                    busroutes.setDescritpion(line[4]);
+                    busroutes.setType(line[5]);
+                    busroutes.setColor(line[7]);
+                    busroutes.setText_color(line[8]);
+                    dbAccess.insertBusRoutes(busroutes);
+                }
                 break;
-            case "stop.txt":
-                Stops stops = new Stops();
-                stops.setName(line[2]);
-                stops.setDescription(line[3]);
-                stops.setLatitude(line[4]);
-                stops.setLongitude(line[5]);
-                stops.setWheelchairBoarding(line[11]);
-                dbAccess.insertStops(stops);
+            case "stops.txt":
+                if(i==0) {
+                    Stops stops = new Stops();
+                    stops.setName(line[2]);
+                    stops.setDescription(line[3]);
+                    stops.setLatitude(line[4]);
+                    stops.setLongitude(line[5]);
+                    stops.setWheelchairBoarding(line[11]);
+                    dbAccess.insertStops(stops);
+                }
                 break;
             case "stop_times.txt":
                 StopTimes stoptimes = new StopTimes();

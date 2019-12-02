@@ -84,12 +84,6 @@ public class MainActivity extends AppCompatActivity {
         }
         */
 
-        /*
-        // FINISH NOTIF :
-        builder.setContentText("Download complete")
-                .setProgress(0, 0, false);
-        notificationManager.notify(1, builder.build());
-        */
         getJSON();
         db.close();
 
@@ -103,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
             notificationManager.notify(CURRENT_ID, builder.build());
         } else {
+            //Completed
             builder.setContentText("Download complete")
                     .setProgress(0, 0, false);
             notificationManager.notify(CURRENT_ID, builder.build());
