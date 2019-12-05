@@ -59,6 +59,7 @@ public class StarManager extends Worker {
         return Result.SUCCESS;
     }
 
+    //La fonction getLien permet de récupérer le lien du fichier zip à télécharger par la suite.
     private ArrayList<String> getLien(){
         try{
             String myUrl = "https://data.explore.star.fr/explore/dataset/tco-busmetro-horaires-gtfs-versions-td/download/?format=json&timezone=Europe/Berlin";
@@ -99,6 +100,8 @@ public class StarManager extends Worker {
                                 notif++;
                             }
                         } else {
+                            //Pour le cas où les fichiers sont les mêmes que ceux déjà traités
+                            //, nous vidons la liste des zip pour ne pas nous en occuper.
                             urlZip.clear();
                             return urlZip;
                         }
@@ -111,6 +114,7 @@ public class StarManager extends Worker {
                         y++;
                         urlZip.add(arrUrl[0]);
                     }
+                    //Pour le cas de la première installation de l'appli un seul fichier zip est récupéré.
                     if(premierfois){
                         return urlZip;
                     }
@@ -170,6 +174,7 @@ public class StarManager extends Worker {
         }
     }
 
+    //Permet de lire les lignes présentes dans le fichier json.
     private String readStream(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader r = new BufferedReader(new InputStreamReader(is),1000);
@@ -180,6 +185,7 @@ public class StarManager extends Worker {
         return sb.toString();
     }
 
+    //Cette fonction lit les lignes des fichiers utiles.
     private void readLines (ZipEntry entry, ZipInputStream zip, int i) {
         BufferedReader in = new BufferedReader(new InputStreamReader(zip));
 
@@ -197,6 +203,7 @@ public class StarManager extends Worker {
         }
     }
 
+    //Ici, nous insérons dans la BDD les lignes préalablement lues.
     private void insertBDD(String[] line, ZipEntry entry, DB_Access dbAccess, int i) {
         switch(entry.getName()){
             case "calendar.txt":

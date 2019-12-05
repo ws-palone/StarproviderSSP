@@ -72,8 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, timeToString(hour,minute), Toast.LENGTH_LONG).show();
             }
         });
+
+        //getJSON lance le service qui récupère les données.
         getJSON();
 
+
+        //Les données de la BDD sont cherchées pour compléter les spinners. Il faut que la BDD soit remplie pour
+        //que les spinners aussi.
         String[] backcolor = new String[152];
         final String[] lineData = new String[152];
         String[] txtcolor = new String[152];
@@ -109,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //On cree les différentes notifications de l'application
     public void createNotification() {
         String textTitle = "Nouveau csv !";
         String textContent = "\nUn nouveau CSV a été ajouté sur le site de la STAR, cliquez pour le télécharger !";
@@ -126,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
         notificationManager = NotificationManagerCompat.from(this);
 
-        // notificationId is a unique int for each notification that you must define
         notificationManager.notify(CURRENT_ID, builder.build());
 
     }
@@ -139,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(getString(R.string.txtErrorInternet)));
         notificationManager = NotificationManagerCompat.from(this);
-        // notificationId is a unique int for each notification that you must define
         notificationManager.notify(CURRENT_ID, builder.build());
         CURRENT_ID++;
     }
@@ -153,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(getString(R.string.txtErrorZIP)));
         notificationManager = NotificationManagerCompat.from(this);
-        // notificationId is a unique int for each notification that you must define
         notificationManager.notify(CURRENT_ID, builder.build());
         CURRENT_ID++;
     }
@@ -167,8 +170,6 @@ public class MainActivity extends AppCompatActivity {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
@@ -181,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
             builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
             notificationManager.notify(CURRENT_ID, builder.build());
         } else {
-            //Completed
             builder.setContentText("Download complete")
                     .setProgress(0, 0, false);
             notificationManager.notify(CURRENT_ID, builder.build());

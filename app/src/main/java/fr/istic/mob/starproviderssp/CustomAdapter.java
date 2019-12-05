@@ -49,6 +49,7 @@ public class CustomAdapter extends BaseAdapter {
             String backcol = "#" + backcolor[i];
             String txtcol = "#" + txtcolor[i];
             view.setBackgroundColor(Color.parseColor(backcol));
+            //La création d'un textview est obligatoire pour écrire un texte et changer sa couleur.
             TextView txtview = (TextView) view;
             txtview.setText(linedata[i]);
             txtview.setTextColor(Color.parseColor(txtcol));
