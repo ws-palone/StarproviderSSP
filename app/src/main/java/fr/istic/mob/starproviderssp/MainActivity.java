@@ -7,10 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -20,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.content.Intent;
+
 import android.widget.TimePicker;
 
 import androidx.annotation.RequiresApi;
@@ -29,12 +28,8 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import java.util.List;
-
 import fr.istic.mob.starproviderssp.database.DB_Starprovider;
 import fr.istic.mob.starproviderssp.table.BusRoutes;
-
-import static android.os.SystemClock.sleep;
 
 
 
@@ -42,13 +37,17 @@ public class MainActivity extends AppCompatActivity {
     String CHANNEL_ID = "1";
     int PROGRESS_MAX = 100;
     int PROGRESS_CURRENT = 0;
+    int CURRENT_ID = 1;
     private static MainActivity MainAct;
     public static MainActivity getmInstanceActivity(){return MainAct;}
     private DB_Starprovider database;
     private SQLiteDatabase db;
     NotificationManagerCompat notificationManager;
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+    public NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
 
+    public NotificationCompat.Builder getBuilder(){
+        return  builder;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         database = new DB_Starprovider(this);
@@ -105,42 +104,78 @@ public class MainActivity extends AppCompatActivity {
         createNotification();
         MainAct = this;
 
-        for (int i = 0; i < 10; i++) {
-
-            Log.d("Sleep", " i : " + i);
-            PROGRESS_CURRENT += 100;
-            builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
-            notificationManager.notify(1, builder.build());
-
-        }
-        builder.setContentText("Download complete")
-                .setProgress(0, 0, false);
-        notificationManager.notify(1, builder.build());
-
         getJSON();
+        db.close();
+
+    }
+    public void restart(){
+        Intent restartIntent = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage(getBaseContext().getPackageName());
+        restartIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(restartIntent);
     }
 
-    public void createNotification() {
-        String textTitle = "Nouveau csv !";
-        String textContent = "\nUn nouveau CSV a été ajouté sur le site de la STAR, cliquez pour le télécharger !";
 
+
+    public void updateNotif(int i) {
+
+        PROGRESS_CURRENT += i;
+        if (PROGRESS_CURRENT < 100) {
+            builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
+            notificationManager.notify(CURRENT_ID, builder.build());
+        } else {
+            //Completed
+            builder.setContentText("Download complete")
+                    .setProgress(0, 0, false);
+            notificationManager.notify(CURRENT_ID, builder.build());
+        }
+    }
+    public void createNotification() {
         builder.setSmallIcon(R.drawable.ic_stat_onesignal_default)
-                .setContentTitle(textTitle)
-                .setContentText(textContent)
+                .setContentTitle(getString(R.string.newCSV))
+                .setContentText(getString(R.string.newCSVtxt))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(textContent));
+                        .bigText(getString(R.string.newCSVtxt)));
 
 
         builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
 
-
         notificationManager = NotificationManagerCompat.from(this);
 
         // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(CURRENT_ID, builder.build());
+        CURRENT_ID++;
 
     }
+
+    public void createNotification2() {
+        builder.setSmallIcon(R.drawable.ic_stat_onesignal_default)
+                .setContentTitle(getString(R.string.Error))
+                .setContentText(getString(R.string.txtErrorInternet))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(getString(R.string.txtErrorInternet)));
+        notificationManager = NotificationManagerCompat.from(this);
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(CURRENT_ID, builder.build());
+        CURRENT_ID++;
+    }
+
+
+    public void createNotification3() {
+        builder.setSmallIcon(R.drawable.ic_stat_onesignal_default)
+                .setContentTitle(getString(R.string.Error))
+                .setContentText(getString(R.string.txtErrorZIP))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(getString(R.string.txtErrorZIP)));
+        notificationManager = NotificationManagerCompat.from(this);
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(CURRENT_ID, builder.build());
+        CURRENT_ID++;
+    }
+
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

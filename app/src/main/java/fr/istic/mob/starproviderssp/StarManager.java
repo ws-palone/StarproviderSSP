@@ -46,17 +46,23 @@ public class StarManager extends Worker {
         ArrayList liens = getLien();
         database = new DB_Starprovider(MainActivity.getmInstanceActivity());
         db = database.getWritableDatabase();
-        if(liens!= null) {
+
+        if(liens != null){
             Iterator<String> it = liens.iterator();
             int i =0;
-            while (it.hasNext()) {
+            while(it.hasNext()){
                 String lien = it.next();
                 unzip(lien,i);
                 i++;
             }
+            db.close();
+            return Result.SUCCESS;
+        }
+        else{
+            db.close();
+            return Result.FAILURE;
         }
 
-        return Result.SUCCESS;
     }
 
     private ArrayList<String> getLien(){
@@ -72,12 +78,18 @@ public class StarManager extends Worker {
                 String[] arrUrl = new String[10];
                 int y =0;
                 int nzip = 1;
+                int quentin = 0;
+
                 for (int i = 0; i < arrStrg.length; i++){
                     boolean premierfois = false;
                     String value = arrStrg[i];
                     String numzip = Integer.toString(nzip);
                     //Prends en compte seulement les cas où il y a un nouveau fichier;
                     if(value.contains("debutvalidite")) {
+                         if (quentin == 0){
+                            MainActivity.getmInstanceActivity().createNotification();
+                            quentin++;
+                        }
                         String[] arrSplit = value.split("\"");
                         if(prefs.getString(numzip,"")==""){
                             premierfois=true;
@@ -111,7 +123,11 @@ public class StarManager extends Worker {
                 connexion.disconnect();
             }
         }catch (Exception e){
+            //NOTIF PAS DE CONNECTION
+            MainActivity.getmInstanceActivity().createNotification2();
             e.printStackTrace();
+
+
         }
         return null;
     }
@@ -127,22 +143,27 @@ public class StarManager extends Worker {
                     case "calendar.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "stops.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "routes.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "stop_times.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     case "trips.txt":
                         readLines(entry,inputStreamzip,i);
                         entry = inputStreamzip.getNextEntry();
+                        MainActivity.getmInstanceActivity().updateNotif(20);
                         break;
                     default:
                         entry = inputStreamzip.getNextEntry();
@@ -150,6 +171,8 @@ public class StarManager extends Worker {
                 }
             }
         } catch (IOException e) {
+            //NOTIF ERREUR ZIP
+            MainActivity.getmInstanceActivity().createNotification3();
             e.printStackTrace();
         }
     }
@@ -178,6 +201,8 @@ public class StarManager extends Worker {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            //La ligne st pétée du cul
+
         }
     }
 
