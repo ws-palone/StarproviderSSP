@@ -2,24 +2,18 @@ package fr.istic.mob.starproviderssp;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.RequiresApi;
@@ -29,12 +23,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import java.util.List;
-
 import fr.istic.mob.starproviderssp.database.DB_Starprovider;
-import fr.istic.mob.starproviderssp.table.BusRoutes;
-
-import static android.os.SystemClock.sleep;
 
 
 
@@ -44,11 +33,15 @@ public class MainActivity extends AppCompatActivity {
     int PROGRESS_CURRENT = 0;
     int CURRENT_ID = 0;
     private static MainActivity MainAct;
-    public static MainActivity getmInstanceActivity(){return MainAct;}
+
     private DB_Starprovider database;
     private SQLiteDatabase db;
     NotificationManagerCompat notificationManager;
     NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+
+    public SQLiteDatabase getDb(){
+        return db;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,18 +67,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //getJSON lance le service qui récupère les données.
+        MainAct = this;
         getJSON();
+
 
 
         //Les données de la BDD sont cherchées pour compléter les spinners. Il faut que la BDD soit remplie pour
         //que les spinners aussi.
-        String[] backcolor = new String[152];
-        final String[] lineData = new String[152];
-        String[] txtcolor = new String[152];
         int position;
         final SQLiteDatabase dbLine = database.getReadableDatabase();
         String query = "SELECT * FROM "+ StarContract.BusRoutes.CONTENT_PATH;
         Cursor cursor = dbLine.rawQuery(query,null);
+        String[] backcolor = new String[cursor.getCount()];
+        final String[] lineData = new String[cursor.getCount()];
+        String[] txtcolor = new String[cursor.getCount()];
+        Log.d("Query",Integer.toString(cursor.getCount()));
         cursor.moveToNext();
         while (!cursor.isAfterLast()){
             position = cursor.getInt(0)-1;
@@ -108,16 +104,41 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-        MainAct = this;
-
-
     }
-
+    public void restartApp() {
+        if (Build.VERSION.SDK_INT >= 11) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    recreate();
+                }
+            });
+        }
+    }
     //On cree les différentes notifications de l'application
     public void createNotification() {
         String textTitle = "Nouveau csv !";
-        String textContent = "\nUn nouveau CSV a été ajouté sur le site de la STAR, cliquez pour le télécharger !";
+        String textContent = "\nChargement de la nouvelle base de données";
+
+        builder.setSmallIcon(R.drawable.ic_stat_onesignal_default)
+                .setContentTitle(textTitle)
+                .setContentText(textContent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(textContent));
+
+
+        builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
+
+
+        notificationManager = NotificationManagerCompat.from(this);
+
+        notificationManager.notify(CURRENT_ID, builder.build());
+
+    }
+    public void createNotification4() {
+        String textTitle = "Premier Import";
+        String textContent = "\nChargement de la base de données";
 
         builder.setSmallIcon(R.drawable.ic_stat_onesignal_default)
                 .setContentTitle(textTitle)
@@ -191,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
     public void getJSON() {
         OneTimeWorkRequest uploadWorkRequest = new OneTimeWorkRequest.Builder(StarManager.class).build();
         WorkManager.getInstance().enqueue(uploadWorkRequest);
+
     }
 
 
@@ -244,5 +266,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return adapterDir;
     }
+    public static MainActivity getmInstanceActivity(){return MainAct;}
 }
 
